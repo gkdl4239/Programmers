@@ -5,7 +5,7 @@ class Solution {
         for(int i=0; i<seoul.length;i++){
             if(seoul[i].equals("Kim")) num = i;
         }
-        answer = "김서방은 "+num+"에 있다";
-        return answer;
+        
+        return new StringBuilder("김서방은 ").append(num).append("에 있다").toString();
     }
 }
