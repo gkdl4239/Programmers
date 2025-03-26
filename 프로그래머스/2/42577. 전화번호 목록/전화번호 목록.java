@@ -7,7 +7,7 @@ class Solution {
         boolean answer = true;
         
         for(int i = 0; i < phone_book.length - 1; i++) {
-            if(phone_book[i+1].indexOf(phone_book[i]) == 0) {
+            if(phone_book[i+1].startsWith(phone_book[i])) {
                 answer = false;
             }
         }
