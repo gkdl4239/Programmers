@@ -1,25 +1,41 @@
 import java.util.*;
 class Solution {
     public int solution(int[] priorities, int location) {
-        int order = 0;
-        int count = 0;
-        Integer[] reverse = Arrays.stream(priorities).boxed().toArray(Integer[]::new);
-        Arrays.sort(reverse,Collections.reverseOrder());
         
-        for(Integer num : reverse) {
-            while(true) {
-                count %=priorities.length;
-                if(priorities[count] == num) {
-                    priorities[count] = 0;
-                    order ++;
+        int answer = 0;
+        int l = location;
+        
+        Queue<Integer> q = new LinkedList<>();
+        
+        for(int i : priorities) {
+            q.add(i);
+        }
+        
+        Arrays.sort(priorities);
+        
+        int size = priorities.length - 1;
+        
+        while(!q.isEmpty()) {
+            
+            int j = q.poll();
+            
+            if(j == priorities[size - answer]) {
+                
+                l--;
+                answer++;
+                if(l<0) {
                     break;
                 }
-                count++;
             }
-            if(count == location) {
-                break;
+            else {
+                q.add(j);
+                l--;
+                if(l<0) {
+                    l = q.size() - 1;
+                }
             }
         }
-        return order;
+        
+        return answer;
     }
 }
