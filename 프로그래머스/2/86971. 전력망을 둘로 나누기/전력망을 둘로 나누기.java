@@ -1,57 +1,29 @@
-import java.util.*;
-
 class Solution {
-    
-    static ArrayList<Integer>[] graph;
-    static boolean[] visited;
-    static int count = 0;
-    
-    public int solution(int n, int[][] wires) {
-        
-        graph = new ArrayList[n+1];
-        visited = new boolean[n+1];
-        int min = Integer.MAX_VALUE;
-        
-        for(int i = 1 ; i < n+1; i++) {
-            graph[i] = new ArrayList<>();
+    int N, min;
+    int[][] map;
+    int[] vst;
+    int dfs(int n){
+        vst[n] = 1;
+        int child = 1;
+        for(int i = 1; i <= N; i++) {
+            if(vst[i] == 0 && map[n][i] == 1) {
+                vst[i] = 1;
+                child += dfs(i);
+            }
         }
-        
-        for(int[] wire : wires) {
-            int a = wire[0];
-            int b = wire[1];
-            
-            graph[a].add(b);
-            graph[b].add(a);
-        }
-        
-        for(int[] wire : wires) {
-            int a = wire[0];
-            int b = wire[1];
-            
-            graph[a].remove((Integer)b);
-            graph[b].remove((Integer)a);
-            
-            dfs(1);
-            min = Math.min(min, Math.abs(count - (n - count)));
-            
-            Arrays.fill(visited, false);
-            count = 0;
-            graph[a].add(b);
-            graph[b].add(a);
-            
-        }
-        
-        return min;
+        min = Math.min(min, Math.abs(child - (N - child)));
+        return child;
     }
-    
-    private void dfs(int node) {
-        
-        visited[node] = true;
-        count++;
-        
-        for(int next : graph[node]) {
-            if(!visited[next])
-                dfs(next);
+    public int solution(int n, int[][] wires) {
+        N = n;
+        min = n;
+        map = new int[n+1][n+1];
+        vst = new int[n+1];
+        for(int[] wire : wires) {
+            int a = wire[0], b = wire[1];
+            map[a][b] = map[b][a] = 1;
         }
+        dfs(1);
+        return min;
     }
 }
