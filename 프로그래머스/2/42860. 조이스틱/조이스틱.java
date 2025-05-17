@@ -8,8 +8,6 @@ class Solution {
         
         for(int i = 0; i < length; i++) {
             char cur = name.charAt(i);
-            if(cur == 'A')
-                alpha[i] = 1;
             
             answer += Math.min(cur - 'A', 'Z' - cur + 1);
         }
