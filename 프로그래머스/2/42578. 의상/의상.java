@@ -1,21 +1,19 @@
 import java.util.*;
 class Solution {
     public int solution(String[][] clothes) {
+        
+        Map<String, Integer> hs = new HashMap<>();
         int answer = 1;
-        Map<String,Integer> map = new HashMap<>();
-        for(String[] cloth : clothes) {
-            if(map.containsKey(cloth[1])) {
-                map.replace(cloth[1],map.get(cloth[1])+1);
-            }
-            else {
-                map.put(cloth[1],1);
-            }
+        
+        for(String[] item : clothes) {
+            hs.put(item[1], hs.getOrDefault(item[1], 1) + 1);
         }
         
-        List<Integer> list = new ArrayList<>(map.values());
-        for(int i=0; i<list.size(); i++) {
-            answer *= (list.get(i)+1);
+        
+        for(int num : hs.values()) {
+            answer *= num;
         }
-        return answer-1;
+        
+        return answer - 1;
     }
 }
