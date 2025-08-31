@@ -1,35 +1,25 @@
 import java.util.*;
 
 class Solution {
-    
-    class Stock {
-        int price;
-        int order;
-        
-        public Stock (int price, int order) {
-            this.price = price;
-            this.order = order;
-        }
-    }
-    
     public int[] solution(int[] prices) {
+        
+        int i = 0;
+        Stack<Integer> timestamp = new Stack<>();
         int[] answer = new int[prices.length];
         
-        Stack<Stock> s = new Stack<>();
-        
-        prices[prices.length-1] = 0;
-        
-        for(int i = 0; i < prices.length; i++) {
-            
-            
-            while(!s.isEmpty() && s.peek().price > prices[i]) {
-                Stock cur = s.pop();
-                answer[cur.order] = i - cur.order;
+        timestamp.push(i);
+        for(i=1; i<prices.length; i++) {
+            while(!timestamp.isEmpty() && prices[timestamp.peek()] > prices[i]) {
+                answer[timestamp.peek()] = i - timestamp.pop();
             }
-            
-            s.push(new Stock(prices[i], i));
+            timestamp.push(i);
+        }
+        
+        while(!timestamp.isEmpty()) {
+            answer[timestamp.peek()] = i - timestamp.pop() - 1;
         }
         
         return answer;
+        
     }
 }
