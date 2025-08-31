@@ -1,30 +1,23 @@
 import java.util.*;
 class Solution {
-    public int[] solution(int[] progresses, int[] speeds) {
+    public Stack<Integer> solution(int[] progresses, int[] speeds) {
         
-        Queue<Integer> q = new LinkedList<>();
-        ArrayList<Integer> list = new ArrayList<>();
-        int day = 0;
-        for(int i = 0; i < speeds.length; i++) {
+        Stack<Integer> stack = new Stack<>();
+        int deploy = 0;
+        int pre = 0;
+        
+        for(int i=0; i<progresses.length; i++) {
+            deploy = (int)Math.ceil((100 - progresses[i]) / (float)speeds[i]);
             
-            day = (int) Math.ceil((100 - progresses[i]) / (double) speeds[i]);
-            
-            if(!q.isEmpty() && q.peek() < day) {
-                list.add(q.size());
-                q.clear();
+            if(stack.size() == 0 || pre < deploy) {
+                stack.push(1);
             }
-            q.add(day);
+            else{
+                stack.push(stack.pop()+1);
+            }
+            pre = Math.max(pre, deploy);
         }
         
-        list.add(q.size());
-        
-        int[] answer = new int[list.size()];
-        
-        int index = 0;
-        for(int num : list) {
-            answer[index++] = num;
-        }
-        
-        return answer;
+        return stack;
     }
 }
