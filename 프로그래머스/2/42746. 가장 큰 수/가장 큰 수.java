@@ -3,21 +3,19 @@ class Solution {
     public String solution(int[] numbers) {
         
         StringBuilder sb = new StringBuilder();
+        String[] words = new String[numbers.length];
         
-        String[] str = new String[numbers.length];
-        
-        for(int i = 0; i < numbers.length; i++) {
-            str[i] = Integer.toString(numbers[i]);
+        for(int i=0; i<numbers.length; i++) {
+            words[i] = Integer.toString(numbers[i]);
         }
         
-        Arrays.sort(str, (o1, o2) -> (o2 + o1).compareTo(o1 + o2));
+        Arrays.sort(words, (o1, o2) -> (Integer.parseInt(o2+o1) - Integer.parseInt(o1+o2)));
         
-        for(String s : str) {
-            sb.append(s);
+        for(String word : words) {
+            sb.append(word);
         }
         
         if(sb.charAt(0) == '0') return "0";
-        
         return sb.toString();
     }
 }
