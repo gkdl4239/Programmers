@@ -1,40 +1,35 @@
-import java.util.*;
-
 class Solution {
     
-    int count;
-    int answer;
+    String std = "";
+    int order = 0;
+    boolean found = false;
+    private void dfs(String word) {
+        
+        if(found) return;
+        
+        if(!word.equals("")) {
+            order++;
+            
+            if(word.equals(std)) {
+                std = word;
+                found = true;
+                return;
+            }
+        }
+        
+        if(word.length() == 5) return;
+        
+        for(int i=0; i<5; i++) {
+            dfs(word + "AEIOU".charAt(i));
+        }
+    }
     
     public int solution(String word) {
         
-        dfs(new StringBuilder(), word);
+        std = word;
         
-        return answer;
-    }
-    
-    boolean dfs(StringBuilder sb, String word) {
+        dfs("");
         
-        if(sb.toString().equals(word)) {
-            return true;
-        }
-        
-        if(sb.length() >= 5) {
-            return false;
-        }
-        
-        for(char c : "AEIOU".toCharArray()) {
-            
-            sb.append(c);
-            count++;
-            
-            if(dfs(sb,word)) {
-                answer = count;
-                return true;
-            }
-            
-            sb.deleteCharAt(sb.length()-1);
-        }
-        
-        return false;
+        return order;
     }
 }
