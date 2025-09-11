@@ -1,29 +1,16 @@
 class Solution {
-    
-    int std;
-    int answer;
-    int n;
-    
     public int solution(int[] numbers, int target) {
         
-        std = target;
-        answer = 0;
-        n = numbers.length;
-        
-        dfs(numbers, 0, 0);
-        
-        return answer;
+        return dfs(numbers, target, 0, 0);
     }
     
-    private void dfs(int[] numbers, int cal, int count) {
+    private int dfs(int[] numbers, int target, int sum, int index) {
         
-        if(count == n) {
-            if(std == cal) answer++;
-            return;
+        if(index == numbers.length) {
+            return sum == target ? 1 : 0;
         }
         
-        dfs(numbers, cal + numbers[count], count+1);
-        dfs(numbers, cal - numbers[count], count+1);
-        
+        return dfs(numbers, target, sum + numbers[index], index + 1)
+            + dfs(numbers, target, sum - numbers[index], index + 1);
     }
 }
