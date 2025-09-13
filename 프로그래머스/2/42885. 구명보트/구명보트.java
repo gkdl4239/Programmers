@@ -7,16 +7,14 @@ class Solution {
         
         int max = people.length-1;
         int min = 0;
-        int answer = 0;
         
-        while(max >= min) {
+        while(max > min) {
             if(people[max] + people[min] <= limit) {
                 min++;
             }
             max--;
-            answer++;
         }
         
-        return answer;
+        return people.length - min;
     }
 }
