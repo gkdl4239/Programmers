@@ -11,17 +11,13 @@ class Solution {
                 server.poll();
             }
             
-            int limit = m * (server.size()+1) - 1;
-            
-            if(players[t] > limit) {
-                int needed = (int)Math.ceil((players[t] - limit) / (float)m);
+            if(players[t] / m > server.size()) {
+                int needed = players[t] / m - server.size();
                 answer += needed;
-                
                 for(int i=0; i<needed; i++) {
                     server.add(t + k);
-                }
+                }     
             }
-            
             
         }
         
