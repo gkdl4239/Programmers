@@ -1,21 +1,17 @@
 class Solution {
     
-    String std = "";
-    int order = 0;
-    boolean found = false;
+    String std;
+    int count;
+    boolean found;
     
     private void dfs(String word) {
         
         if(found) return;
-        
-        if(!word.equals("")) order++;
-        
+        if(!word.equals("")) count++;
         if(word.equals(std)) {
-                std = word;
-                found = true;
-                return;
+            found = true;
+            return;
         }
-        
         if(word.length() == 5) return;
         
         for(int i=0; i<5; i++) {
@@ -26,8 +22,10 @@ class Solution {
     public int solution(String word) {
         
         std = word;
+        found = false;
+        count = 0;
         dfs("");
         
-        return order;
+        return count;
     }
 }
