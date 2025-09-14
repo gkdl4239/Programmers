@@ -1,37 +1,38 @@
 class Solution {
     
     int N, min;
-    boolean[][] map;
+    boolean[][] maps;
     boolean[] visited;
+    
     
     private int dfs(int n) {
         
+        int child = 1;
         visited[n] = true;
-        int sum = 1;
         
-        for(int i=1; i<= N; i++) {
-            if(visited[i] == false && map[n][i]) {
-                sum += dfs(i);
-            }
+        for(int i=1; i<=N; i++) {
+            if(!visited[i] && maps[n][i]) child += dfs(i);
         }
-        min = Math.min(min, Math.abs(sum - (N - sum)));
-        return sum;
+        
+        min = Math.min(min, Math.abs(child - (N - child)));
+        
+        return child;
     }
-    
     
     public int solution(int n, int[][] wires) {
         
         N = n;
         min = n;
-        map = new boolean[n+1][n+1];
         visited = new boolean[n+1];
+        maps = new boolean[n+1][n+1];
         
         for(int[] wire : wires) {
+            
             int a = wire[0];
             int b = wire[1];
             
-            map[a][b] = true;
-            map[b][a] = true;
+            maps[a][b] = true;
+            maps[b][a] = true;
         }
         
         dfs(1);
