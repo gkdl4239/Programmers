@@ -5,11 +5,8 @@ class Solution {
         
         int[][] dp = new int[2][n];
         
-        dp[0][1] = money[1];
-        dp[1][0] = money[0];
-        dp[1][1] = money[0];
-        
         for(int i=0; i<2; i++) {
+            dp[i][1-i] = money[1-i];
             
             for(int j=2; j<n-i; j++) {
                 dp[i][j] = Math.max(money[j] + dp[i][j-2], dp[i][j-1]);
